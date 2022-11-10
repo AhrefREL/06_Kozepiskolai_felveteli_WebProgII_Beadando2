@@ -16,6 +16,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+        <script type="text/javascript" src = "<?=SITE_ROOT?>/assets/js/ajax-felveteli.js"></script>
     </head>
     <body>
         <div class="jumbotron text-center" style="margin-bottom:0">
