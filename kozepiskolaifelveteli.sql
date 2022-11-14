@@ -1358,8 +1358,8 @@ INSERT INTO `kepzes` (`id`, `nev`, `felveheto`, `minimum`) VALUES
 (2, 'angol', 30, 150),
 (3, 'matematika', 16, 160),
 (4, 'informatika', 16, 150),
-(5, 'k?rnyezetv?delmi', 16, 130),
-(6, 'k?zgazdas?gi', 30, 130);
+(5, 'környezetvédelmi', 16, 130),
+(6, 'közgazdasági', 30, 130);
 
 -- --------------------------------------------------------
 

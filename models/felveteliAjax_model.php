@@ -46,6 +46,27 @@ switch($_POST['op']) {
         }
         echo json_encode($eredmeny);
         break;
+    case 'get_MinimumPontalRendelkezoJelentkezok':
+        $eredmeny = array("lista" => array());
+        try {
+            $connection = Database::getConnection();
+            $stmt = $connection->prepare("SELECT jelentkezo.nev, jelentkezo.nem
+            , jelentkezes.sorrend, jelentkezes.szerzett 
+            FROM ((`jelentkezes` 
+            LEFT JOIN kepzes ON jelentkezes.kepzesid = kepzes.id)
+            LEFT JOIN jelentkezo ON jelentkezes.jelentkezoid = jelentkezo.id)
+            WHERE jelentkezes.szerzett >= kepzes.minimum 
+            AND jelentkezes.kepzesid= :kepzesid");
+            $stmt->execute(array(':kepzesid' => $_POST['kepzesid']));
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $eredmeny["lista"][] = array("nev" => $row['nev'], "nem" => $row['nem'],
+                 "sorrend" => $row['sorrend'], "szerzett" => $row['szerzett']);
+            }
+        }
+        catch(PDOException $e) {
+        }
+        echo json_encode($eredmeny);
+        break;
 
 
 

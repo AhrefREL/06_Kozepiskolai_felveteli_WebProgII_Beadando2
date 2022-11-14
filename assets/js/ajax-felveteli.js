@@ -4,9 +4,12 @@ function kepzesek(){
         {"op" : "get_kepzes"},
         function(data) {            
             $("<option>").val("0").text("Válasszon...").appendTo("#kepzesek");
+            $("<option>").val("0").text("Válasszon...").appendTo("#miniumumPontKepzesek");
             var lista = data.lista;
-            for(i=0; i<lista.length; i++)                
+            for(i=0; i<lista.length; i++)  {              
                 $("<option>").val(lista[i].id).text(lista[i].nev).appendTo("#kepzesek");
+                $("<option>").val(lista[i].id).text(lista[i].nev).appendTo("#miniumumPontKepzesek");
+            }
         },
         "json"                                                    
     );
@@ -56,12 +59,44 @@ function jelentkezokLekereseKepzesEsSorrend(){
     );
 }
 
+function get_MinimumPontalRendelkezoJelentkezok(){
+    $("#return_jelentkezokMinimumPonttalRendelkezok").html("");
+    var kepzesid = $("#miniumumPontKepzesek").val();
+    
+    $.post(
+        "models/felveteliAjax_model.php",
+        {"op" : "get_MinimumPontalRendelkezoJelentkezok", "kepzesid": kepzesid},
+        function(data) {
+            $('<tr id="table_jelentkezok2">').appendTo("#return_jelentkezokMinimumPonttalRendelkezok");
+            $("<th>").text("Sorszám").appendTo("#table_jelentkezok2");
+            $("<th>").text("Név").appendTo("#table_jelentkezok2");
+            $("<th>").text("Nem").appendTo("#table_jelentkezok2");
+            $("<th>").text("Jelentkezési Sorrend").appendTo("#table_jelentkezok2");
+            $("<th>").text("Szerzett Pontszám").appendTo("#table_jelentkezok2");
+            var lista = data.lista;
+            console.log(lista);
+            for(i=0; i<lista.length; i++)  {
+               
+                $('<tr>').attr('id', 'jelentkezoMinPont_'+i).appendTo("#return_jelentkezokMinimumPonttalRendelkezok");
+                $("<td>").text(i+1).appendTo("#jelentkezoMinPont_"+i);
+                $("<td>").text(lista[i].nev).appendTo("#jelentkezoMinPont_"+i);
+                $("<td>").text(lista[i].nem).appendTo("#jelentkezoMinPont_"+i);
+                $("<td>").text(lista[i].sorrend).appendTo("#jelentkezoMinPont_"+i);
+                $("<td>").text(lista[i].szerzett).appendTo("#jelentkezoMinPont_"+i);
+            }
+          
+        },
+        "json"
+    );
+}
+
 
 
 $(document).ready(function() {
     kepzesek();
     $("#kepzesek").change(sorrendErtekek);
     $("#sorrend").change(jelentkezokLekereseKepzesEsSorrend);
+    $("#miniumumPontKepzesek").change(get_MinimumPontalRendelkezoJelentkezok);
     
  });
 

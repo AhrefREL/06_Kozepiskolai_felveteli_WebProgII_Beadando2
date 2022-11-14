@@ -10,3 +10,10 @@
 
 <table id="return_jelentkezok" class="table"></table>
 
+<h2>Minimumponttal rendelkező hallgatók listázása képzés szerint</h2>
+<label>Kérem válasszon egy képzést</label>
+<select id="miniumumPontKepzesek">    
+</select>
+
+<table id="return_jelentkezokMinimumPonttalRendelkezok" class="table"></table>
+
