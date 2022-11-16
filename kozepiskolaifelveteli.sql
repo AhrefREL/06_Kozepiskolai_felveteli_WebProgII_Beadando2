@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Nov 09. 22:00
+-- Létrehozás ideje: 2022. Nov 15. 19:55
 -- Kiszolgáló verziója: 10.1.32-MariaDB
 -- PHP verzió: 7.1.17
 
@@ -44,8 +44,28 @@ CREATE TABLE `felhasznalok` (
 --
 
 INSERT INTO `felhasznalok` (`id`, `csaladNev`, `keresztNev`, `felhasznalonev`, `jelszo`, `jogosultsag`) VALUES
-(1, 'Kiss', 'István', 'teszt', 'b11706e6af3767100de36d6bfe55ce502399d8aa', '_1_'),
-(2, 'Nagy', 'László', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '__1');
+(1, 'Kiss', 'István', 'teszt', 'b11706e6af3767100de36d6bfe55ce502399d8aa', '_1_');
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `hirdetofal`
+--
+
+CREATE TABLE `hirdetofal` (
+  `id` int(11) NOT NULL,
+  `cim` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
+  `tartalom` varchar(2000) COLLATE utf8_hungarian_ci NOT NULL,
+  `datum` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `hirdetofal`
+--
+
+INSERT INTO `hirdetofal` (`id`, `cim`, `tartalom`, `datum`) VALUES
+(1, 'Télapó buli', 'Beiskolázási szülői értekezlet\r\n\r\nÉrtesítjük a tisztelt szülőket, hogy 2022.05.10-én, kedden 16:00 órai kezdettel beiskolázási szülői értekezletet tartunk azok számára, akiknek gyermeke a 2022/2023. tanévre meghirdetett középiskolai felvételi eljárásban felvételt nyert a SZTEJKI Eötvös József Gimnázium 9. évfolyamára. A tanuló osztályát és a tanulmányi területét a postai úton kiküldött értesítés tartalmazza.\r\n \r\nHelyszín: SZTEJKI Eötvös József Gimnázium\r\n                6723 Szeged, Csongor tér 1.\r\n \r\nA szülői értekezlet témái:\r\nBeiratkozással kapcsolatos információk\r\nTagozatokkal kapcsolatos információk\r\nNyelvi csoportba sorolás\r\nFakultáció választás\r\nA szülői értekezletre az iskolánkba felvételt nyert tanulókat is várjuk.', '2023-01-13 16:00:00'),
+(5, 'Télapó buli', 'ekkor s akkor', '2022-11-24 23:51:00');
 
 -- --------------------------------------------------------
 
@@ -64,7 +84,6 @@ CREATE TABLE `jelentkezes` (
 --
 -- A tábla adatainak kiíratása `jelentkezes`
 --
-
 
 INSERT INTO `jelentkezes` (`id`, `jelentkezoid`, `kepzesid`, `sorrend`, `szerzett`) VALUES
 (1, 212, 2, 1, 152),
@@ -1382,7 +1401,7 @@ CREATE TABLE `menuk` (
 INSERT INTO `menuk` (`id`, `slug`, `oldalcim`, `szuloId`, `jogosultsag`) VALUES
 (1, 'nyitolap', 'Nyitólap', 0, '111'),
 (2, 'felveteli', 'Felvételi', 0, '011'),
-(3, 'restful-api', 'Restful API', 0, '111'),
+(3, 'restfulapi', 'Restful API', 0, '111'),
 (4, 'pdf-keszito-szolgaltatas', 'PDF készítő szolgáltatás', 0, '011'),
 (7, 'belepes', 'Belépés', 0, '100'),
 (8, 'regisztracio', 'Regisztráció', 0, '100'),
@@ -1400,12 +1419,10 @@ ALTER TABLE `felhasznalok`
   ADD PRIMARY KEY (`id`);
 
 --
--- A tábla indexei `jelentkezes`
+-- A tábla indexei `hirdetofal`
 --
-ALTER TABLE `jelentkezes`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `jelentkezoid` (`jelentkezoid`),
-  ADD UNIQUE KEY `kepzesid` (`kepzesid`);
+ALTER TABLE `hirdetofal`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- A tábla indexei `jelentkezo`
@@ -1436,10 +1453,10 @@ ALTER TABLE `felhasznalok`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT a táblához `jelentkezes`
+-- AUTO_INCREMENT a táblához `hirdetofal`
 --
-ALTER TABLE `jelentkezes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE `hirdetofal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT a táblához `jelentkezo`
@@ -1458,17 +1475,6 @@ ALTER TABLE `kepzes`
 --
 ALTER TABLE `menuk`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- Megkötések a kiírt táblákhoz
---
-
---
--- Megkötések a táblához `jelentkezes`
---
-ALTER TABLE `jelentkezes`
-  ADD CONSTRAINT `jelentkezes_ibfk_1` FOREIGN KEY (`kepzesid`) REFERENCES `kepzes` (`id`),
-  ADD CONSTRAINT `jelentkezes_ibfk_2` FOREIGN KEY (`jelentkezoid`) REFERENCES `jelentkezo` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
