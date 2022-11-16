@@ -15,7 +15,7 @@ if(isset($_POST['id']))
   // Ha nincs id és megadtak minden adatot (), akkor beszúrás
   if($_POST['id'] == "" && $_POST['name'] != "" && $_POST['email'] != "" && $_POST['body'] != "" )
   {
-      $data = Array("post_id" => "1282", "name" => $_POST["name"], "email" => $_POST["email"],
+      $data = Array("post_id" => "1318", "name" => $_POST["name"], "email" => $_POST["email"],
        "body" => $_POST["body"]);
       $ch = curl_init($url.$access_token);
       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -28,7 +28,7 @@ if(isset($_POST['id']))
       curl_close($ch);
       echo '<h2">A bejegyzett adatok: ' . $post . '</h2>';
   }
-  
+ 
   // Ha nincs id de nem adtak meg minden adatot
   elseif($_POST['id'] == "")
   {
@@ -52,16 +52,19 @@ if(isset($_POST['id']))
   // Ha van id, amely >=1, de nem adtak meg legalább az egyik adatot
   elseif($_POST['id'] >= 1)
   {
-      //$data = Array("id" => $_POST["id"]);
+      
       $urlDelete = $url.$_POST["id"].$access_token;
       echo $urlDelete;
       $ch = curl_init($urlDelete);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      //curl_setopt($ch, CURLOPT_ENCODING, '');
+      //curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+      //curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);    
-      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-     // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      //$result = curl_exec($ch);
+      
+      $result = curl_exec($ch);
       curl_close($ch);
   }
   
