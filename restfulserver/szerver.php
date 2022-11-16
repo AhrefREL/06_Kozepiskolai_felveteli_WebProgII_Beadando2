@@ -30,7 +30,9 @@ try {
 				$data = array();
 				$incoming = file_get_contents("php://input");
 				parse_str($incoming, $data);
-				$modositando = "id=id"; $params = Array(":id"=>$data["id"]);
+				$modositando = "id = :id"; 
+				$params = Array("id"=>$data["id"]);
+				
 				if($data['cim'] != "") {$modositando .= ", cim = :cim"; $params[":cim"] = $data["cim"];}
 				if($data['tartalom'] != "") {$modositando .= ", tartalom = :tartalom"; $params[":tartalom"] = $data["tartalom"];}
 				if($data['datum'] != "") {$modositando .= ", datum = :datum"; $params[":datum"] = $data["datum"];}
