@@ -97,7 +97,7 @@ function get_MinimumPontalRendelkezoJelentkezok(){
                 type: 'bar',
 
                 data:  {
-                    labels: [1,2,3,4,5],
+                    labels: ["1. helynek jelölt","2. helynek jelölt","3. helynek jelölt","4. helynek jelölt","5. helynek jelölt"],
                     datasets: [{
                         label: 'Minimumponttal rendelkező jelentkezők száma '+$("#miniumumPontKepzesek option:selected" ).text()+' képzés szerint',
                         data: chartData,
