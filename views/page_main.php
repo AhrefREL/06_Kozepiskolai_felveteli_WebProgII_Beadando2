@@ -23,7 +23,7 @@
             <h1>IT SCHOOL</h1>
         </div>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="#">*
             <?php if($_SESSION['felhasznaloId']) {?>Bejelentkezett: </br>
                 <strong><?= $_SESSION['csaladNev']." ".$_SESSION['keresztNev']." 
                 ".$_SESSION['felhasznalonev']."" ?></strong><?php } ?>

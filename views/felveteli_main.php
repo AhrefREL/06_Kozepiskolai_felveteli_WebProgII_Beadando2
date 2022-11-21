@@ -15,5 +15,12 @@
 <select id="miniumumPontKepzesek">    
 </select>
 
+
+<canvas id="myChart" width="200" height="75"></canvas>
+
 <table id="return_jelentkezokMinimumPonttalRendelkezok" class="table"></table>
+
+
+
+
 

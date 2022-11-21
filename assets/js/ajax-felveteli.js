@@ -59,6 +59,9 @@ function jelentkezokLekereseKepzesEsSorrend(){
     );
 }
 
+
+let myChart = null;
+
 function get_MinimumPontalRendelkezoJelentkezok(){
     $("#return_jelentkezokMinimumPonttalRendelkezok").html("");
     var kepzesid = $("#miniumumPontKepzesek").val();
@@ -74,9 +77,12 @@ function get_MinimumPontalRendelkezoJelentkezok(){
             $("<th>").text("Jelentkezési Sorrend").appendTo("#table_jelentkezok2");
             $("<th>").text("Szerzett Pontszám").appendTo("#table_jelentkezok2");
             var lista = data.lista;
-            console.log(lista);
+            //console.log(lista);
+            var chartData = [0,0,0,0,0];
             for(i=0; i<lista.length; i++)  {
-               
+                
+                chartData[lista[i].sorrend-1] += 1;
+                
                 $('<tr>').attr('id', 'jelentkezoMinPont_'+i).appendTo("#return_jelentkezokMinimumPonttalRendelkezok");
                 $("<td>").text(i+1).appendTo("#jelentkezoMinPont_"+i);
                 $("<td>").text(lista[i].nev).appendTo("#jelentkezoMinPont_"+i);
@@ -84,6 +90,57 @@ function get_MinimumPontalRendelkezoJelentkezok(){
                 $("<td>").text(lista[i].sorrend).appendTo("#jelentkezoMinPont_"+i);
                 $("<td>").text(lista[i].szerzett).appendTo("#jelentkezoMinPont_"+i);
             }
+           // console.log(chartData);
+            
+            // start chart
+            const config = {
+                type: 'bar',
+
+                data:  {
+                    labels: [1,2,3,4,5],
+                    datasets: [{
+                        label: 'Minimumponttal rendelkező jelentkezők száma '+$("#miniumumPontKepzesek option:selected" ).text()+' képzés szerint',
+                        data: chartData,
+                        backgroundColor: [
+                        'rgba(34, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                        ],
+                        borderColor: [
+                        'rgb(34, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+               
+                
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  }
+                },
+
+
+              };
+              if(myChart){
+                myChart.destroy();
+              }
+              const ctx = document.getElementById('myChart').getContext('2d');               
+              myChart = new Chart(ctx, config);
+              
+
+
+            //end chart    
+
+
           
         },
         "json"
