@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Nov 15. 19:55
+-- Létrehozás ideje: 2022. Nov 27. 08:38
 -- Kiszolgáló verziója: 10.1.32-MariaDB
 -- PHP verzió: 7.1.17
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Adatbázis: `kozepiskolaifelveteli`
 --
-CREATE DATABASE IF NOT EXISTS `kozepiskolaifelveteli` DEFAULT CHARACTER SET utf8 COLLATE utf8_hungarian_ci;
-USE `kozepiskolaifelveteli`;
 
 -- --------------------------------------------------------
 
@@ -44,7 +42,9 @@ CREATE TABLE `felhasznalok` (
 --
 
 INSERT INTO `felhasznalok` (`id`, `csaladNev`, `keresztNev`, `felhasznalonev`, `jelszo`, `jogosultsag`) VALUES
-(1, 'Kiss', 'István', 'teszt', 'b11706e6af3767100de36d6bfe55ce502399d8aa', '_1_');
+(1, 'Kiss', 'István', 'teszt', 'b11706e6af3767100de36d6bfe55ce502399d8aa', '_1_'),
+(3, 'Abu', 'Aladin', 'Aladin', '2bc75458c71213661aa42ba9badc52862dfd3e44', '_1_'),
+(4, 'Nagy', 'Alma', 'Alma', '5f5ea3800d9a62bc5a008759dbbece9cad5db58f', '_0_');
 
 -- --------------------------------------------------------
 
@@ -64,8 +64,7 @@ CREATE TABLE `hirdetofal` (
 --
 
 INSERT INTO `hirdetofal` (`id`, `cim`, `tartalom`, `datum`) VALUES
-(1, 'Télapó buli', 'Beiskolázási szülői értekezlet\r\n\r\nÉrtesítjük a tisztelt szülőket, hogy 2022.05.10-én, kedden 16:00 órai kezdettel beiskolázási szülői értekezletet tartunk azok számára, akiknek gyermeke a 2022/2023. tanévre meghirdetett középiskolai felvételi eljárásban felvételt nyert a SZTEJKI Eötvös József Gimnázium 9. évfolyamára. A tanuló osztályát és a tanulmányi területét a postai úton kiküldött értesítés tartalmazza.\r\n \r\nHelyszín: SZTEJKI Eötvös József Gimnázium\r\n                6723 Szeged, Csongor tér 1.\r\n \r\nA szülői értekezlet témái:\r\nBeiratkozással kapcsolatos információk\r\nTagozatokkal kapcsolatos információk\r\nNyelvi csoportba sorolás\r\nFakultáció választás\r\nA szülői értekezletre az iskolánkba felvételt nyert tanulókat is várjuk.', '2023-01-13 16:00:00'),
-(5, 'Télapó buli', 'ekkor s akkor', '2022-11-24 23:51:00');
+(1, 'Télapó buli', 'Beiskolázási szülői értekezlet\r\n\r\nÉrtesítjük a tisztelt szülőket, hogy 2022.05.10-én, kedden 16:00 órai kezdettel beiskolázási szülői értekezletet tartunk azok számára, akiknek gyermeke a 2022/2023. tanévre meghirdetett középiskolai felvételi eljárásban felvételt nyert a SZTEJKI Eötvös József Gimnázium 9. évfolyamára. A tanuló osztályát és a tanulmányi területét a postai úton kiküldött értesítés tartalmazza.\r\n \r\nHelyszín: SZTEJKI Eötvös József Gimnázium\r\n                6723 Szeged, Csongor tér 1.\r\n \r\nA szülői értekezlet témái:\r\nBeiratkozással kapcsolatos információk\r\nTagozatokkal kapcsolatos információk\r\nNyelvi csoportba sorolás\r\nFakultáció választás\r\nA szülői értekezletre az iskolánkba felvételt nyert tanulókat is várjuk.', '2023-01-13 16:00:00');
 
 -- --------------------------------------------------------
 
@@ -1402,11 +1401,12 @@ INSERT INTO `menuk` (`id`, `slug`, `oldalcim`, `szuloId`, `jogosultsag`) VALUES
 (1, 'nyitolap', 'Nyitólap', 0, '111'),
 (2, 'felveteli', 'Felvételi', 0, '011'),
 (3, 'restfulapi', 'Restful API', 0, '111'),
-(4, 'pdf-keszito-szolgaltatas', 'PDF készítő szolgáltatás', 0, '011'),
+(4, 'tcpdf', 'PDF készítő szolgáltatás', 0, '011'),
+(5, 'ingyenesrestapi', 'Ingyenes Restful API', 0, '011'),
 (7, 'belepes', 'Belépés', 0, '100'),
 (8, 'regisztracio', 'Regisztráció', 0, '100'),
-(9, 'kilepes', 'Kijelentkezés', 0, '011'),
-(10, 'admin', 'Admin', 0, '001');
+(10, 'admin', 'Admin', 0, '001'),
+(11, 'kilepes', 'Kijelentkezés', 0, '011');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -1450,13 +1450,13 @@ ALTER TABLE `menuk`
 -- AUTO_INCREMENT a táblához `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT a táblához `hirdetofal`
 --
 ALTER TABLE `hirdetofal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT a táblához `jelentkezo`
@@ -1474,7 +1474,7 @@ ALTER TABLE `kepzes`
 -- AUTO_INCREMENT a táblához `menuk`
 --
 ALTER TABLE `menuk`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

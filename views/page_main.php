@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?=SITE_ROOT?>/assets/css/main_style.css">
         <link rel="apple-touch-icon" sizes="180x180" href="<?=SITE_ROOT?>/assets/favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="<?=SITE_ROOT?>/assets/favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="<?=SITE_ROOT?>/assets/favicon/favicon-16x16.png">
@@ -19,9 +20,19 @@
         <script type="text/javascript" src = "<?=SITE_ROOT?>/assets/js/ajax-felveteli.js"></script>
     </head>
     <body>
-        <div class="jumbotron text-center" style="margin-bottom:0">
-            <h1>IT SCHOOL</h1>
+
+
+        <div class="layer">
+            <div class="jumbotron jumbotron-fluid jumbotron-container resume-jumbotron text-white">
+                    <h1 class="text-center jumbotron-header mb-4">
+                        <img src="<?=SITE_ROOT?>/assets/images/it_school_logo.png" style="height: auto; width: 5%;">
+                        <span class="start">IT</span> <span class="end">School</span>
+                    </h1>
+                
+            </div>
         </div>
+
+
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <a class="navbar-brand" href="#">*
             <?php if($_SESSION['felhasznaloId']) {?>Bejelentkezett: </br>
