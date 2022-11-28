@@ -22,7 +22,7 @@ function sorrendErtekek(){
         "models/felveteliAjax_model.php",
         {"op" : "get_sorrend", "kepzesid": kepzesid },
         function(data) {
-            $("<option>").val("0").text("Válasszon...").appendTo("#sorrend");
+            $("<option>").text("Válasszon...").appendTo("#sorrend");
             var lista = data.lista;
             for(i=0; i<lista.length; i++)                
                 $("<option>").val(lista[i].sorrend).text(lista[i].sorrend).appendTo("#sorrend");
@@ -41,17 +41,17 @@ function jelentkezokLekereseKepzesEsSorrend(){
         {"op" : "get_jelentkezok", "kepzesid": kepzesid, "sorrend": sorrend },
         function(data) {
             $('<tr id="table_jelentkezok">').appendTo("#return_jelentkezok");
-            $("<th>").text("Sorszám").appendTo("#table_jelentkezok");
-            $("<th>").text("Név").appendTo("#table_jelentkezok");
-            $("<th>").text("Nem").appendTo("#table_jelentkezok");
+            $("<th scope='col'>").text("Sorszám").appendTo("#table_jelentkezok");
+            $("<th scope='col'>").text("Név").appendTo("#table_jelentkezok");
+            $("<th scope='col'>").text("Nem").appendTo("#table_jelentkezok");
             var lista = data.lista;
-            console.log(lista);
+            //console.log(lista);
             for(i=0; i<lista.length; i++)  {
                
                 $('<tr>').attr('id', 'jelentkezo_'+i).appendTo("#return_jelentkezok");
-                $("<td>").text(i+1).appendTo("#jelentkezo_"+i);
-                $("<td>").text(lista[i].nev).appendTo("#jelentkezo_"+i);
-                $("<td>").text(lista[i].nem).appendTo("#jelentkezo_"+i);
+                $("<td scope='row'>").text(i+1).appendTo("#jelentkezo_"+i);
+                $("<td scope='row'>").text(lista[i].nev).appendTo("#jelentkezo_"+i);
+                $("<td scope='row'>").text(lista[i].nem).appendTo("#jelentkezo_"+i);
             }
           
         },

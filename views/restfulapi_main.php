@@ -64,30 +64,39 @@ $tabla = curl_exec($ch);
 curl_close($ch);
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>HIRDETŐFAL</title>
-</head>
-<body>
-    <?= $result ?>
-    <h1>BEJEGYZÉSEK A HIRDETŐFALON:</h1>
-    <?= $tabla ?>
-    <br>
-    <h2>Módosítás / Beszúrás</h2>
-    <h3>Használati utasítás</h3>
-    <ul>
-      <li>Beszúrás: Hagyja üresen a SORSZÁMát és adja meg a többi adatot (cim, tartalom, datum).</li>
-      <li>Módosítás: Adja meg a módosítandó sor SORSZÁMát és legalább az egyik adatot (cim, tartalom, datum).</li>
-      <li>Törlés: Adja meg a törlni kívánt sor SORSZÁMát és hagyja üresen a többi adatot (cim, tartalom, datum).</li>
-    </ul>
-    <form method="post">
-    Sorszám: <input type="text" name="id"><br><br>
-    Hirdetés címe: <input type="text" name="cim" maxlength="80"> <br><br>
-    Hirdetés Szövege: <textarea name="tartalom" maxlength="1999"></textarea><br><br>
-    Dátum: <input type="datetime-local" name="datum"> <br><br>
-    <input type="submit" value = "Küldés">
-    </form>
-</body>
-</html>
+<div>
+<?= $result ?>
+<h1 class="h1">BEJEGYZÉSEK A HIRDETŐFALON:</h1>
+<div class="table-responsive m-1">
+<?= $tabla ?>
+
+<br>
+<h3 class="h3 m-2">Használati utasítás (Módosítás, beszúrás törlés)</h3>
+<ul>
+  <li><strong>Beszúrás:</strong> Hagyja üresen a SORSZÁMát és adja meg a többi adatot (cim, tartalom, datum).</li>
+  <li><strong>Módosítás:</strong> Adja meg a módosítandó sor SORSZÁMát és legalább az egyik adatot (cim, tartalom, datum).</li>
+  <li><strong>Törlés:</strong> Adja meg a törlni kívánt sor SORSZÁMát és hagyja üresen a többi adatot (cim, tartalom, datum).</li>
+</ul>
+</div>
+<form action="" method="post">
+  <div class="form-group">
+    <label>Sorszám:</label>
+    <input type="text" name="id" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Hirdetés címe:</label>
+    <input type="text" name="cim" class="form-control" maxlength="80">
+  </div>
+  <div class="form-group">
+    <label>Hirdetés Szövege:</label>
+    <textarea rows="6" cols="30" class="form-control" name="tartalom" maxlength="1999"></textarea>
+  </div>
+  <div class="form-group">
+    <label>Dátum:</label>
+    <input type="datetime-local" class="form-control" name="datum">
+  </div>
+  <div class="form-group">
+    <input type="submit" class="btn btn-success btn-lg" value = "Küldés">
+  </div>
+</form>
+</div>

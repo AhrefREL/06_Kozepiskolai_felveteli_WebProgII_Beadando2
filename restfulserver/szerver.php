@@ -9,7 +9,7 @@ try {
 		case "GET":
 				$sql = "SELECT * FROM hirdetofal";     
 				$sth = $dbh->query($sql);
-				$eredmeny .= "<table style=\"border-collapse: collapse;\">
+				$eredmeny .= "<table class='table-dark'>
                 <tr><th>Sorszám</th><th>Cím</th><th>Tartalom</th><th>Dátum</th></tr>";
 				while($row = $sth->fetch(PDO::FETCH_ASSOC)) {
 					$eredmeny .= "<tr>";

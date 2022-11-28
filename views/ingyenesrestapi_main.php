@@ -26,7 +26,7 @@ if(isset($_POST['id']))
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $post = curl_exec($ch);
       curl_close($ch);
-      echo '<h2">A bejegyzett adatok: ' . $post . '</h2>';
+      echo '<h2 class="h2 text-success">Sikeres hozzáadás!</h2>';
   }
  
   // Ha nincs id de nem adtak meg minden adatot
@@ -38,14 +38,15 @@ if(isset($_POST['id']))
   // Ha van id, amely >= 1, és megadták legalább az egyik adatot (cim, tartalom, datum), akkor módosítás
   elseif($_POST['id'] >= 1 && ($_POST['name'] != "" || $_POST['email'] != "" || $_POST['body'] != ""))
   {
-      $data = Array("id" => $_POST["id"], "cim" => $_POST["cim"], "tartalom" => $_POST["tartalom"], "datum" => $_POST["datum"]);
-      $ch = curl_init($url);
+      $data = Array("name" => $_POST["name"], "email" => $_POST["email"], "body" => $_POST["body"]);
+      $ch = curl_init($url.$_POST["id"].$access_token);
       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);    
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
       curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      //$result = curl_exec($ch);
+      $post = curl_exec($ch);
+      $result = "<h2 class='h2 text-success'>Sikeresen módosította a ".$_POST['id']." ID-val rendelkező sort. MI törént: ".$post."</h2>";
       curl_close($ch);
   }
   
@@ -54,7 +55,7 @@ if(isset($_POST['id']))
   {
       
       $urlDelete = $url.$_POST["id"].$access_token;
-      echo $urlDelete;
+      //echo $urlDelete;
       $ch = curl_init($urlDelete);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       //curl_setopt($ch, CURLOPT_ENCODING, '');
@@ -63,8 +64,8 @@ if(isset($_POST['id']))
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
       curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);    
-      
-      $result = curl_exec($ch);
+      $post = curl_exec($ch);
+      $result = "<h2 class='h2 text-success'>Sikeres törlés!</h2>";
       curl_close($ch);
   }
   
@@ -94,35 +95,65 @@ foreach($tabla as $key => $value){
 
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>HIRDETŐFAL</title>
-</head>
-<body>
-    <?= $result ?>
-    <h1>Gorest Ingyenes API teszt commentek</h1>
-    <?php 
-    //create_table($tabla['data'], true);
-    //var_dump($tabla);
-   var_dump($tabla['data']);
-    ?>
-    <br>
-    <h2>Módosítás / Beszúrás</h2>
-    <h3>Használati utasítás</h3>
-    <ul>
-      <li>Beszúrás: Hagyja üresen a SORSZÁMát és adja meg a többi adatot (cim, tartalom, datum).</li>
-      <li>Módosítás: Adja meg a módosítandó sor SORSZÁMát és legalább az egyik adatot (cim, tartalom, datum).</li>
-      <li>Törlés: Adja meg a törlni kívánt sor SORSZÁMát és hagyja üresen a többi adatot (cim, tartalom, datum).</li>
-    </ul>
-    <form method="post">
-    Sorszám: <input type="text" name="id"><br><br>
-    Név: <input type="text" name="name" maxlength="80"> <br><br>
-    E-mail: <input type="email" name="email">  <br><br>
-    Komment szövege: <textarea name="body" maxlength="1999"></textarea><br><br>
-    
-    <input type="submit" value = "Küldés">
-    </form>
-</body>
-</html>
+
+<?= $result ?>
+<h1 class="h1">Gorest Ingyenes API teszt commentek</h1>
+<?php 
+//create_table($tabla['data'], true);
+//var_dump($tabla);
+
+$html = "<div class= 'table-responsive'><table class='table'>
+<tr>
+<th>id</th>
+<th>post_id</th>
+<th>name</th>
+<th>email</th>
+<th>body</th>
+</tr>";
+
+foreach($tabla["data"] as $key => $value){
+  $html .= "<tr>";
+  $html .= "<td>".$value["id"]."</td>";
+  $html .= "<td>".$value["post_id"]."</td>";
+  $html .= "<td>".$value["name"]."</td>";
+  $html .= "<td>".$value["email"]."</td>";
+  $html .= "<td>".$value["body"]."</td>";
+  $html .= "</tr>";
+}
+
+$html .= "</table></div>";
+//var_dump($tabla['data']);
+echo $html;
+?>
+<br>
+
+<h3 class="h3">Használati utasítás (Módosítás, Beszúrás, Törlés)</h3>
+<ul>
+  <li><strong>Beszúrás:</strong> Hagyja üresen a SORSZÁMát és adja meg a többi adatot (név, e-mail, komment szöveg).</li>
+  <li><strong>Módosítás:</strong> Adja meg a módosítandó sor SORSZÁMát és a többi adatot (név, e-mail, komment szöveg).</li>
+  <li><strong>Törlés:</strong> Adja meg a törlni kívánt sor SORSZÁMát és hagyja üresen a többi adatot (név, e-mail, komment szöveg).</li>
+</ul>
+
+<form method="post">
+  <div class="form-group">
+    <label>Sorszám(id): </label>
+    <input class="form-control" type="text" name="id">
+  </div>
+  <div class="form-group">
+    <label>Név(name): </label>
+    <input class="form-control" type="text" name="name" maxlength="80">
+  </div>
+  <div class="form-group">
+    <label>E-mail(email): </label>
+    <input class="form-control" type="email" name="email">
+  </div>
+  <div class="form-group">
+    <label>Komment szövege(body): </label>
+    <textarea class="form-control" colls="6" rows="20" name="body" maxlength="1999"></textarea>
+  </div>
+  <div class="form-group">
+
+  <input class="btn btn-success btn-lg" type="submit" value = "Küldés">
+  </div>
+
+</form>

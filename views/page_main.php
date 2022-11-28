@@ -23,9 +23,9 @@
 
 
         <div class="layer">
-            <div class="jumbotron jumbotron-fluid jumbotron-container resume-jumbotron text-white">
+            <div class="jumbotron jumbotron-fluid jumbotron-container resume-jumbotron text-white" style="margin-bottom: 0px;">
                     <h1 class="text-center jumbotron-header mb-4">
-                        <img src="<?=SITE_ROOT?>/assets/images/it_school_logo.png" style="height: auto; width: 5%;">
+                        <img src="<?=SITE_ROOT?>/assets/images/it_school_logo.png" style="height: auto; width: 70px;">
                         <span class="start">IT</span> <span class="end">School</span>
                     </h1>
                 
